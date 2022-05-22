@@ -1,7 +1,7 @@
 # Pulse-Width-Modulation
 PWM implementation in FPGA.
 
-The code generates  two different clocks based on the clock divider mentioned in the testbech. 
-It has separate blocks for generating outputs clocks based on your input clock divider values. 
-The clock divder can have even and odd values. 
-Using this outpu clock a PWM is generated.
+Based on the clock divider given in the testbech, the code generates two separate clocks.
+It features different blocks for creating output clocks dependent on the values of your input clock divider.
+Even and odd numbers are possible for the clock divder.
+A PWM is generated using this output clock.
