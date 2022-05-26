@@ -8,3 +8,8 @@ A PWM is generated using this output clock.
 
 
 The simulation was run on zedboard. 
+
+
+The generated even and odd clocks where then fed into two separate modules to generaet the PWM. 
+
+The PWM can be varied according to the Duty Cycle requirement. And it can be changed in the respective PWM modules.
