@@ -19,6 +19,8 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+// This module generates a even and odd clock signals based on the value of the clock divider provided
+
 
 module CLK_DIVIDER #( range_clk_div = 12)(
     input clk_in,
