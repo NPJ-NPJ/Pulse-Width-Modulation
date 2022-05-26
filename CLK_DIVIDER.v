@@ -19,16 +19,17 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// This module generates a even and odd clock signals based on the value of the clock divider provided
 
-
-module CLK_DIVIDER #( range_clk_div = 12)(
+module CLK_DIVIDER #( range_clk_div = 12, channel = 5)(
     input clk_in,
     input rst,
     input [range_clk_div - 1 : 0] clk_divider_odd, //  The clock divider takes odd values 
     input [range_clk_div - 1 : 0] clk_divider_even, //  The clock divider takes odd values 
-    output  clk_out_odd,
-    output  clk_out_even
+    
+    output [channel -1 : 0]  pwm_clk_odd,
+    output [channel -1 : 0]  pwm_clk_even,
+    output Clk_Even,
+    output Clk_Odd
     
 );
 
@@ -45,9 +46,13 @@ wire [range_clk_div - 1 : 0] counter_2;
 
 reg clk_gen;
 
+wire clk_even;
+wire clk_odd;
+
    
 
-
+ // Odd clock Divider
+ 
 always @ (posedge clk_in)
 begin
     
@@ -83,8 +88,11 @@ begin
            
 end
 
-assign clk_out_odd = ((pos_edge_counter > (clk_divider_odd >> 1)) | (neg_edge_counter > (clk_divider_odd >> 1)));
+assign clk_odd = ((pos_edge_counter > (clk_divider_odd >> 1)) | (neg_edge_counter > (clk_divider_odd >> 1)));
+assign Clk_Odd = clk_odd;
 
+
+// Even Clock Divider
 
 always @(posedge clk_in)
 begin
@@ -105,7 +113,29 @@ begin
      
 end
 
-assign clk_out_even = clk_gen;
+assign clk_even = clk_gen;
+assign Clk_Even = clk_even;
 assign counter_2 = counter_1 + 1;
+
+
+// Even clock divider pwm generator instantiation
+
+PWM_EVEN_CLK PWM_Even  (
+    
+    .clk_even(clk_even),
+    .pwm_even_clk(pwm_clk_even)
+    
+    );
+    
+// Odd clock divider pwm generator instantiation   
+    
+PWM_ODD_CLK PWM_Odd  (
+   
+    .clk_odd(clk_odd),
+    .pwm_odd_clk(pwm_clk_odd)
+    
+    );
+    
+
    
 endmodule
