@@ -26,17 +26,23 @@ reg clk_in;
 reg rst;
 reg [12-1 : 0]clk_divider_odd;
 reg [12-1 : 0]clk_divider_even;
-wire clk_out_odd;
-wire clk_out_even;
+wire clk_even;
+wire [5-1 : 0] pwm_clk_out_odd;
+wire clk_odd;
+wire [5-1: 0] pwm_clk_out_even;
+
 
 
 CLK_DIVIDER DUT (
     .clk_in (clk_in),
-    .clk_out_odd(clk_out_odd),
-    .clk_out_even(clk_out_even),
+    .pwm_clk_odd(pwm_clk_out_odd),
+    .pwm_clk_even(pwm_clk_out_even),
     .clk_divider_odd(clk_divider_odd),
     .clk_divider_even(clk_divider_even),
-    .rst(rst));
+    .rst(rst),
+    .Clk_Even (clk_even),
+    .Clk_Odd (clk_odd)
+    );
 
 initial
 begin
